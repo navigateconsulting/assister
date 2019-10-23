@@ -24,7 +24,7 @@ export class RasaBot {
    */
   @Prop({reflectToAttr: true}) server: string;
   @Prop({reflectToAttr: true}) conversation: string = uuidv4();
-  @Prop({reflectToAttr: true}) header: string = 'Assistant';
+  @Prop({reflectToAttr: true}) header: string = 'Virtual Assistant';
   @Prop({reflectToAttr: true}) gap: 'none' | 'short' | 'long' = 'long';
   private pane?: HTMLChatPaneElement;
   private fab?: HTMLFabAppElement;
@@ -81,23 +81,23 @@ export class RasaBot {
 
   render() {
     return (
-      <fab-app
-        ref={element => this.fab = element}
-      >
-        <chat-pane
-          ref={element => this.pane = element}
-          onIncoming={event => this.handleIncomingMessage(event)}
-        >
-            <ion-toolbar slot="header" class="toolbar">
-              <ion-title>{this.header}</ion-title>
-              <ion-buttons slot="primary">
-                <ion-button
-                  onClick={() => this.fab.close()}
-                >
-                  <ion-icon slot="icon-only" name="close" />
-                </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
+      <fab-app ref={element => this.fab = element}>
+        <chat-pane class="trainer-chat-pane" ref={element => this.pane = element} onIncoming={event => this.handleIncomingMessage(event)}>
+          <ion-toolbar slot="header" class="toolbar">
+            <ion-title>
+              <div class="trainer-icon-div">
+                <ion-icon class="trainer-icon" src="../assets/images/trainer.svg"></ion-icon>
+              </div>
+              <div class="trainer-header-div">
+                <span class="trainer-header"><b>{this.header}</b></span>
+              </div>
+            </ion-title>
+            <ion-buttons slot="primary">
+              <ion-button onClick={() => this.fab.close()}>
+                <ion-icon slot="icon-only" name="close" />
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
         </chat-pane>
       </fab-app>
     );
